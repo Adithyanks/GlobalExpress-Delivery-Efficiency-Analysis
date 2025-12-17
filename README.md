@@ -43,9 +43,13 @@ All datasets are available in the `data/` directory.
 ## Repository Structure
 GlobalExpress-Analysis/
 │
+
 ├── data/                # Raw CSV datasets
+
 ├── notebooks/           # Jupyter notebooks with full analysis
+
 ├── requirements.txt     # Python dependencies
+
 └── README.md            # Project documentation
 
 ---
