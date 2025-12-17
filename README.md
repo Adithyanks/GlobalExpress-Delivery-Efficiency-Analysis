@@ -1,110 +1,158 @@
 # GlobalExpress – Delivery Efficiency Analysis
 
-This repository contains a data analytics project analyzing delivery efficiency for GlobalExpress Logistics.  
-The goal is to understand factors affecting delivery performance and provide actionable recommendations to improve operations.
+This repository presents an **end-to-end data analytics project** focused on analyzing delivery efficiency for **GlobalExpress Logistics**.  
+The objective is to identify operational, temporal, and geographical factors affecting delivery performance and translate insights into actionable recommendations.
+
+This project emphasizes **exploratory data analysis, structured reasoning, and business-oriented insights**, rather than predictive modeling.
 
 ---
 
-## Project Overview
+## Project Objective
 
-GlobalExpress operates multiple warehouses and delivery zones.  
-The company collects data on deliveries, drivers, warehouses, and zones but has not yet fully leveraged it for operational optimization.  
+GlobalExpress operates across multiple warehouses and delivery zones, collecting large volumes of operational data.  
+However, this data has not been fully leveraged to understand **why delivery delays occur** and **which factors matter most**.
 
-This project performs **end-to-end analysis**, including data cleaning, exploratory data analysis, feature engineering, and insight generation.
-
----
-
-## Dataset Description
-
-The analysis uses the following datasets:
-
-1. **data_deliveries.csv** – transactional data on 45,000+ deliveries including package details, delivery times, customer ratings, and costs.  
-2. **data_drivers.csv** – driver information, including experience, vehicle type, ratings, and work details.  
-3. **data_warehouses.csv** – warehouse details including capacity, location, refrigeration, and automation.  
-4. **data_zones.csv** – delivery zone characteristics including distance, population, income, urban density, parking difficulty, and growth rate.
-
-> All datasets are stored in the `data/` folder.
+This analysis aims to:
+- Explore delivery delay patterns
+- Identify operational bottlenecks
+- Understand geographic and temporal risk factors
+- Provide data-backed recommendations for efficiency improvement
 
 ---
 
-## Project Structure
+## Dataset Overview
 
+The analysis uses four structured datasets:
+
+- **`data_deliveries.csv`**  
+  Delivery-level transactional data (45,000+ records), including package details, promised vs actual delivery times, costs, customer ratings, and operational conditions.
+
+- **`data_drivers.csv`**  
+  Driver attributes such as experience, ratings, vehicle type, work preferences, and eligibility for bonuses.
+
+- **`data_warehouses.csv`**  
+  Warehouse-level information including capacity, location, automation, refrigeration, and operational costs.
+
+- **`data_zones.csv`**  
+  Delivery zone characteristics such as distance from hub, population, income, urban density, parking difficulty, and growth rate.
+
+All datasets are available in the `data/` directory.
+
+---
+
+## Repository Structure
 GlobalExpress-Analysis/
 │
-├── data/ # CSV datasets
-├── notebooks/ # Jupyter notebooks with analysis
-├── requirements.txt # Python dependencies
-└── README.md # Project documentation
-
+├── data/                # Raw CSV datasets
+├── notebooks/           # Jupyter notebooks with full analysis
+├── requirements.txt     # Python dependencies
+└── README.md            # Project documentation
 
 ---
 
 ## Analysis Workflow
 
-1. **Data Loading & Cleaning**
-   - Imported datasets into Pandas DataFrames.
-   - Checked for missing values, duplicates, and data type consistency.
-   - Handled missing values and cleaned relevant columns.
+### 1. Data Loading & Validation
+- Loaded all datasets using Pandas.
+- Verified dataset shapes, data types, duplicates, and missing values.
+- Assessed data quality issues that could affect analysis.
 
-2. **Exploratory Data Analysis (EDA)**
-   - Analyzed delivery times, delays, and correlations with package, driver, and zone characteristics.
-   - Investigated temporal patterns (day of week, month) and operational factors (warehouse, driver, vehicle type).
-   - Examined geographic and demographic patterns (distance, urban density, parking difficulty).
+### 2. Data Cleaning
+- Handled missing numerical values where required.
+- Ensured consistent data types across related datasets.
+- Prepared clean, analysis-ready DataFrames.
 
-3. **Feature Engineering**
-   - Created refined metrics, such as `delivery_time` focusing on positive delays.
-   - Derived additional features for improved insight (e.g., weekday, zone grouping).
+### 3. Exploratory Data Analysis (EDA)
+The EDA focused on understanding delivery delays across multiple dimensions:
+
+- **Time-based analysis**  
+  - Weekday and monthly delivery patterns  
+- **Operational factors**  
+  - Warehouse, driver, and vehicle attributes  
+- **Geographical and demographic factors**  
+  - Distance from hub, urban density, income levels  
+- **External conditions**  
+  - Weather and traffic conditions  
+
+Visualization techniques (histograms, boxplots, scatterplots) were used extensively to reveal patterns.
+
+### 4. Feature Engineering
+- Created a refined delay metric (`delivery_time`) focusing only on **positive delays**.
+- Derived additional features such as weekday indicators to support deeper analysis.
 
 ---
 
 ## Key Findings
 
-1. **Delay Time Distribution**  
-   - Delivery delays include both positive (late) and negative (early) values.  
-   - A refined metric `delivery_time` focuses on positive delays.
+### 1. Delivery Delay Distribution
+- Delivery delays include both early and late deliveries.
+- Focusing only on positive delays provided clearer insight into operational inefficiencies.
 
-2. **Weather & Traffic Conditions**  
-   - Severe weather (stormy/snowy) and traffic conditions increase delays, but are **not the sole drivers** of performance.
+### 2. Weather & Traffic Conditions
+- Severe weather (stormy/snowy) and heavy traffic increase delays.
+- These factors contribute to delays but are **not the primary drivers** of performance issues.
 
-3. **Temporal Patterns**  
-   - Mondays and Wednesdays show higher delays; Tuesdays consistently show the lowest.
+### 3. Temporal Patterns
+- **Mondays and Wednesdays** consistently show higher delays.
+- **Tuesdays** show the lowest delays, suggesting potential for workload redistribution.
 
-4. **Geographical & Demographic Factors**  
-   - Mid-range distances have the highest delays.  
-   - Low-density areas show longer delays due to travel between delivery points.  
-   - Parking difficulty almost doubles delivery times and is a critical operational factor.  
-   - Certain zones (e.g., Zone 7) may consistently underperform.
+### 4. Geographic & Demographic Factors
+- **Mid-range distances from hubs** experience higher delays.
+- **Low-density zones** show longer delays due to increased travel time between delivery points.
+- **Parking difficulty** nearly doubles delivery delays and is a critical operational constraint.
+- Certain zones (e.g., **Zone 7**) consistently underperform and require focused investigation.
 
-5. **Vehicle Type, Cost, and Profitability**  
-   - No strong standalone patterns; vehicle type is not a major driver of performance.  
+### 5. Vehicle Type, Cost & Profitability
+- No strong standalone relationship was observed.
+- Vehicle type alone is not a major driver of delivery performance.
 
 ---
 
 ## Overall Insights
 
-Operational and geographic factors such as **weekday scheduling, zone characteristics, density, and parking difficulty** influence delivery performance more than weather, traffic, or vehicle type.  
+Delivery performance is influenced more by **operational scheduling and geographic characteristics** than by weather, traffic, or vehicle type alone.
 
-Additional domain-informed observations:  
-- Automated sorting in warehouses did not show measurable impact in this dataset.  
-- Bonus schemes did not significantly affect delivery delays.
+Key influencing factors include:
+- Weekday demand patterns
+- Zone-level characteristics
+- Urban density
+- Parking difficulty
 
 ---
 
 ## Recommendations
 
-- **Peak Weekdays**: Increase delivery associates or add extra shifts on Mondays and Wednesdays.  
-- **Tuesday Utilization**: Consider redistributing workload to optimize performance.  
-- **Geographical Risks**: Prioritize underperforming zones (e.g., Zone 7) for operational improvements.  
-- **Mid-Range Hubs & Parking**: Investigate routing inefficiencies and parking challenges to reduce delays.
+- **Peak Weekdays**  
+  Increase delivery associates or add extra shifts on Mondays and Wednesdays.
+
+- **Tuesday Utilization**  
+  Redistribute workload from high-delay days to Tuesdays where performance is strongest.
+
+- **Geographical Risks**  
+  Prioritize underperforming zones (e.g., Zone 7) for operational audits and route optimization.
+
+- **Routing & Parking Constraints**  
+  Investigate routing inefficiencies in mid-range zones and address parking challenges to reduce delays.
 
 ---
 
-## Tools & Libraries Used
+## Tools & Technologies
 
 - Python  
-- Pandas & NumPy (data manipulation)  
-- Matplotlib & Seaborn (visualizations)  
-- Jupyter Notebook (analysis workflow)
+- Pandas & NumPy  
+- Matplotlib & Seaborn  
+- Jupyter Notebook  
 
 ---
 
+## Notes & Limitations
+
+- Some relationships required assumptions due to indirect links between datasets.
+- Correlation analysis alone was insufficient; most insights were derived from exploratory visual analysis.
+- Findings are descriptive and intended to support operational decision-making.
+
+
+
+
+
+   
